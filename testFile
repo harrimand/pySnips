@@ -1,0 +1,10 @@
+This line has {one} substitution.
+This line has {one } and {two} substitution.
+Now we have {  one}, {two}, repeat {one } { two} and {three } substitutions.
+Out of order {four  } and {  two } and {one} and {three}
+Two bad Entries  {n four  } and {  two } and {     none} and {three}
+Entries not encapsulated three one { four} {  one  } {one   }
+That is all the substitutions.
+
+We had a blank line.
+
