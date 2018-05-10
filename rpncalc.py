@@ -1,3 +1,6 @@
+#!/bin/python3
+# RPN Calculator by Darrell Harriman  harrimand@gmail.com
+
 import math
 class rpn:
     def __init__(self, inStr=''):
