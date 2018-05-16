@@ -9,6 +9,7 @@ class UserInput(Gtk.Window):
         Gtk.Window.__init__(self, title="Widgetry Wizzard")
         self.set_border_width(10)
         self.set_size_request(600, 500)
+        self.set_position(Gtk.WindowPosition.CENTER)
 
         # Layout
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -84,6 +85,7 @@ class UserInput(Gtk.Window):
         self.eventbox.connect("button-press-event", self.image_clicked)
         self.image = Gtk.Image()
         self.image.set_from_file("phylo.png")
+        self.image.set_tooltip_text("Wet Paint")
         self.eventbox.add(self.image)
         vboxL.pack_start(self.eventbox, False, False, 0)
 
