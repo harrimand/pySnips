@@ -120,6 +120,8 @@ class rpn:
             self.stack = self.stack + self.stack[-2:]
             dupStr = " ".join([str(i) for i in self.stack[-2:]])
             print("Dup 2".ljust(15), dupStr.ljust(15), self.stack)
+        else:
+            print("dup2 requires 2 items on the stack")
 
     def sq(self):
         if len(self.stack) > 0:
