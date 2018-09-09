@@ -1,4 +1,4 @@
-#!/bin/bash/python3
+#!/usr/bin/python3
 # Module takes a list and prints the transposed list to columns
 #    Parameters: List, Number of columns, column width
 # Author:  Darrell Harriman harrimand@gmail.com
