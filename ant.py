@@ -31,8 +31,10 @@ for s in range(2000):
     T.fd(5)
     if (abs(T.xcor()) >= 344):
         T.setheading((180 - Th) % 360)
+        T.fd(10)
     if (abs(T.ycor()) >= 344):
         T.setheading((360 - Th))
+        T.fd(10)
 
 Tsc.exitonclick()
 
