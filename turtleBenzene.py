@@ -10,6 +10,9 @@
 # https://docs.python.org/3/library/turtle.html
 # https://www.geeksforgeeks.org/turtle-programming-python/
 
+# Turtle Event driven Programming
+# https://compuzzle.wordpress.com/2015/04/14/events-python-turtle/
+
 sides = 3
 
 colors = ['red', 'white', 'blue', 'green', 'orange', 'purple', 'Light Sea Green', 'yellow',  'cyan']
