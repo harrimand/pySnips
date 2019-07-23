@@ -7,6 +7,7 @@
 # Online Turtle: https://repl.it/languages/python_turtle
 
 # Turtle command reference and examples:
+# https://docs.python.org/3/library/turtle.html
 # https://www.geeksforgeeks.org/turtle-programming-python/
 
 sides = 3
