@@ -33,7 +33,7 @@ def dispSN(qt, ip, cidr):
     print('\n\n')
 
 runAgain = 'Y'
-while(runAgain == 'Y'):
+while(runAgain[0] == 'Y'):
     ip = -1
     while(ip < 0 or ip > 255):
         ipT = input("\n\nEnter IP Address: ")
