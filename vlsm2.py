@@ -1,4 +1,4 @@
-# vlsm.py
+# vlsmm2.py
 
 q = lambda n: int(bin(n)[2:],4)
 ql = [q(n) for n in range(16)]
@@ -21,30 +21,44 @@ def findRowCol(qt, ip):
             break
     return [r, c]
 
-ip = -1
-while(ip < 0 or ip > 255):
-    ipT = input("\n\nEnter IP Address: ")
-    ip = int(ipT[ipT.rfind('.')+1:])
-
-cidr = 0
-while(cidr < 24 or cidr > 30):
-    cidr = int(input("\n\nEnter CIDR (Number of Subnet Mask bits): "))
+def dispSN(qt, ip, cidr):
     snAdd = ip & int(256 - 2**(32 - cidr))
+    bcAdd = snAdd + 2**(32 - cidr) - 1
+    snRC = findRowCol(qt, snAdd)
+    bcRC = findRowCol(qt, bcAdd)
+    for r in qt[snRC[0]:bcRC[0]+1]:
+        print('\n')
+        for c in r[snRC[1]:bcRC[1]+1]:
+            print(str(c).rjust(5), end='')
+    print('\n\n')
 
-for r, ql in enumerate(qt):
-    c = -1
-    if(ip in ql):
-        c = ql.index(ip)
-        break
+runAgain = 'Y'
+while(runAgain == 'Y'):
+    ip = -1
+    while(ip < 0 or ip > 255):
+        ipT = input("\n\nEnter IP Address: ")
+        ip = int(ipT[ipT.rfind('.')+1:])
 
-print("\n\nipAdd: {}  IP Row: {}\tColumn: {}\n".format(ip, r, c))
+    cidr = 0
+    while(cidr < 24 or cidr > 30):
+        cidr = int(input("\nEnter CIDR (Number of Subnet Mask bits): "))
+        snAdd = ip & int(256 - 2**(32 - cidr))
 
-snRC = findRowCol(qt, snAdd)
-print("\nsnAdd: {}  SN Row: {}\tColumn: {}\n".format(snAdd, snRC[0], snRC[1]))
+    for r, ql in enumerate(qt):
+        c = -1
+        if(ip in ql):
+            c = ql.index(ip)
+            break
 
-bcAdd = snAdd + 2**(32 - cidr) - 1
-bcRC = findRowCol(qt, bcAdd )
-print("\nbcAdd: {}  BC Row: {}\tColumn: {}\n\n".format(bcAdd, bcRC[0], bcRC[1]))
+    print("\nipAdd: {}  IP Row: {}\tColumn: {}\n".format(ip, r, c))
 
+    snRC = findRowCol(qt, snAdd)
+    print("snAdd: {}  SN Row: {}\tColumn: {}\n".format(snAdd, snRC[0], snRC[1]))
 
+    bcAdd = snAdd + 2**(32 - cidr) - 1
+    bcRC = findRowCol(qt, bcAdd )
+    print("bcAdd: {}  BC Row: {}\tColumn: {}\n".format(bcAdd, bcRC[0], bcRC[1]))
+
+    dispSN(qt, ip, cidr)
+    runAgain = input("\nRun Again? [Y | N]: ").upper()
 
