@@ -1,5 +1,9 @@
 #! /usr/bin/env python3
 # subNet.py
+# http://ascii-table.com/ansi-escape-sequences.php
+
+import colorama # colorama required on Windows for font colors
+colorama.init()
 
 q = lambda n: int(bin(n)[2:],4)
 qt = [[q(m) + 2 * q(n) for m in range(16)] for n in range(16)]
@@ -21,7 +25,8 @@ print("\nIP Address Entry:\n\tOption 1: nnn.nnn.nnn.nnn/hh\n\t\
 Option 2: nnn/hh\n\tOption 3: nnn\n")
 
 runAgain = 'Y'
-while(runAgain[0] == 'Y'):
+while(runAgain == '' or runAgain[0] == 'Y'):
+    print("\033[2J")
     cidr = 0
     ip = -1
     while(ip < 0 or ip > 255):
