@@ -42,6 +42,8 @@ Dlist = []
 # print('-' * 75, '\n\n')
 
 with open("sunTrack.txt", 'w') as fid:
+    fid.write(City + ' ' + State + ' ' + datetime.date.today().strftime("%m-%d-%Y"))
+    fid.write('\n')
     for line in Dlines:
         if(':' in line and '<' not in line):
             fid.write(line)
