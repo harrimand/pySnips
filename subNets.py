@@ -1,3 +1,4 @@
+
 #! /usr/bin/env python3
 #
 # subNet.py
@@ -22,10 +23,24 @@ def drawVLSMtable(qt, ip, cidr):
             else:
                 print(str(c).rjust(5), end='')
 
+def drawNets(qt, nets):
+    for r in qt:
+        print('\n')
+        for c in r:
+            printed = False
+            for net in nets:
+                if(c >= net.sn and c <= net.bc):
+                    print(net.col + "{}\033[00m".format(str(c).rjust(5)), end='')
+                    printed = True
+                    break
+            if(not printed):
+                print("\033[30m" + str(c).rjust(5) + "\033[00m", end='')
+
+
 class subNet:
     def __init__(self, ip, cidr, color):
         self.sn = ip & int(256 - 2**(32 - cidr))
-        self.bc = snAdd + 2**(32-cidr)-1
+        self.bc = self.sn + 2**(32-cidr)-1
         self.col = color
 
 colors = ["\033[31m", "\033[32m", "\033[33m", "\033[34m", "\033[35m", "\033[36m", "\033[37m"]
@@ -60,15 +75,16 @@ while(runAgain == '' or runAgain[0] == 'Y'):
 
     sortN = sorted(net, key=lambda subnet: subnet.sn)
 
-    for sN in net:
-        print(sN.col + "\tSubNet: {}\t Broadcast: {}\033[00m\n".format(sN.sn, sN.bc))
+#    for sN in net:
+#        print(sN.col + "\tSubNet: {}\t Broadcast: {}\033[00m\n".format(sN.sn, sN.bc))
 
-    print("\n\n\tSorted:\n")
+    print("\n\n\tSubnets:\n")
 
     for sN in sortN:
         print(sN.col + "\tSubNet: {}\t Broadcast: {}\033[00m\n".format(sN.sn, sN.bc))
 
     netNum += 1
 
-    runAgain = input("\n\nRun Again? [Y | N]: ").upper()
+    drawNets(qt, sortN)
 
+    runAgain = input("\n\nRun Again? [Y | N]: ").upper()
