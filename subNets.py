@@ -39,6 +39,7 @@ def drawNets(qt, nets):
 
 class subNet:
     def __init__(self, ip, cidr, color):
+        self.cidr = cidr
         self.sn = ip & int(256 - 2**(32 - cidr))
         self.bc = self.sn + 2**(32-cidr)-1
         self.col = color
@@ -52,11 +53,12 @@ netNum = 0
 net = []
 runAgain = 'Y'
 while(runAgain == '' or runAgain[0] == 'Y'):
-    print("\033[2J")
+    print("\033[1;2H\033[1K")
+#    print("\033[2J")
     cidr = 0
     ip = -1
     while(ip < 0 or ip > 255):
-        ipT = input("\n\nEnter IP Address: ")
+        ipT = input("\nEnter IP Address: ")
         if("/" in ipT):
             cidr = int(ipT[ipT.rfind("/")+1:])
             ip = int(ipT[ipT.rfind('.')+1:ipT.rfind("/")])
@@ -66,11 +68,13 @@ while(runAgain == '' or runAgain[0] == 'Y'):
     while(cidr < 24 or cidr > 30):
         cidr = int(input("\nEnter CIDR 24..30 (Number of Subnet Mask bits): "))
 
+    print("\033[2J")
+
     snAdd = ip & int(256 - 2**(32 - cidr))
 
     net.append(subNet(ip, cidr, colors[netNum % len(colors)]))
 
-    print("\nip: {}  cidr: {}".format(ip, cidr))
+#    print("\nip: {}  cidr: {}".format(ip, cidr))
 #    drawVLSMtable(qt, ip, cidr)
 
     sortN = sorted(net, key=lambda subnet: subnet.sn)
@@ -81,10 +85,12 @@ while(runAgain == '' or runAgain[0] == 'Y'):
     print("\n\n\tSubnets:\n")
 
     for sN in sortN:
-        print(sN.col + "\tSubNet: {}\t Broadcast: {}\033[00m\n".format(sN.sn, sN.bc))
+        print(sN.col + "\tSubNet: {}/{}\t Broadcast: {}\033[00m\n".format(sN.sn, sN.cidr, sN.bc))
 
     netNum += 1
 
     drawNets(qt, sortN)
 
     runAgain = input("\n\nRun Again? [Y | N]: ").upper()
+    print("\033[1A\033[1K                      ")
+
