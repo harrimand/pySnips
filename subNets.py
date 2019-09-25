@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python3
 #
 # subNet.py
@@ -36,13 +35,27 @@ def drawNets(qt, nets):
             if(not printed):
                 print("\033[30m" + str(c).rjust(5) + "\033[00m", end='')
 
-
 class subNet:
     def __init__(self, ip, cidr, color):
         self.cidr = cidr
         self.sn = ip & int(256 - 2**(32 - cidr))
         self.bc = self.sn + 2**(32-cidr)-1
         self.col = color
+
+def menu():
+    menuOpt = 'X'
+    print("\n\n\n\033[37m" + "Add subnet [A]".rjust(20) + "\033[00m")
+    print("\033[37m" + "Delete subnet [D]".rjust(20) + "\033[00m")
+    print("\033[37m" + "Reset subnets [R]".rjust(20) + "\033[00m")
+    print("\033[37m" + "Name subnet [N]".rjust(20) + "\033[00m")
+    print("\033[37m" + "Quit [Q]".rjust(20) + "\033[00m")
+    while(not(menuOpt in ['A', 'D', 'R', 'N', 'Q'])):
+        menuOpt = input("Choose Option: ").upper()
+        if (menuOpt == ''):
+            menuOpt = 'A'
+        print("\033[1A\033[15C   \033[1A\033[3D")
+    return menuOpt
+
 
 colors = ["\033[31m", "\033[32m", "\033[33m", "\033[34m", "\033[35m", "\033[36m", "\033[37m"]
 
@@ -51,8 +64,8 @@ Option 2: nnn/hh\n\tOption 3: nnn\n")
 
 netNum = 0
 net = []
-runAgain = 'Y'
-while(runAgain == '' or runAgain[0] == 'Y'):
+runAgain = 'A'
+while(runAgain == '' or runAgain[0] == 'A'):
     print("\033[1;2H\033[1K")
 #    print("\033[2J")
     cidr = 0
@@ -93,13 +106,17 @@ while(runAgain == '' or runAgain[0] == 'Y'):
 
     drawNets(qt, sortN)
 
-    runAgain = input("\n\nRun Again? [Y | N] or Reset[R]: ").upper()
+    runAgain = menu()
+
+#    runAgain = input("\n\nRun Again? [Y | N] or Reset[R]: ").upper()
     if(not(runAgain == '') and runAgain[0] == 'R'):
         netNum = 0
         net = []
-        sortN = []
+        sortN = [subNet(0, 24, "\033[30m")]
+        print("\033[0K              \033[1J\033[3;0H")
+#        print("\033[1K***\033[3;0H")
         drawNets(qt, sortN)
-        runAgain = 'Y'
-        print("\033[1J")
-    print("\033[1A\033[1K                                   ")
+        runAgain = 'A'
+    print("\033[0A\033[1K                                   ")
+
 
