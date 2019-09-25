@@ -62,6 +62,8 @@ while(runAgain == '' or runAgain[0] == 'Y'):
         if("/" in ipT):
             cidr = int(ipT[ipT.rfind("/")+1:])
             ip = int(ipT[ipT.rfind('.')+1:ipT.rfind("/")])
+        elif(ipT == ''):
+            ip = -1
         else:
             ip = int(ipT[ipT.rfind('.')+1:])
 
@@ -84,13 +86,20 @@ while(runAgain == '' or runAgain[0] == 'Y'):
 
     print("\n\n\tSubnets:\n")
 
-    for sN in sortN:
-        print(sN.col + "\tSubNet: {}/{}\t Broadcast: {}\033[00m\n".format(sN.sn, sN.cidr, sN.bc))
+    for n, sN in enumerate(sortN):
+        print(sN.col + "   SubNet {}: {}/{}\t Broadcast: {}\033[00m\n".format(n, sN.sn, sN.cidr, sN.bc))
 
     netNum += 1
 
     drawNets(qt, sortN)
 
-    runAgain = input("\n\nRun Again? [Y | N]: ").upper()
-    print("\033[1A\033[1K                      ")
+    runAgain = input("\n\nRun Again? [Y | N] or Reset[R]: ").upper()
+    if(not(runAgain == '') and runAgain[0] == 'R'):
+        netNum = 0
+        net = []
+        sortN = []
+        drawNets(qt, sortN)
+        runAgain = 'Y'
+        print("\033[1J")
+    print("\033[1A\033[1K                                   ")
 
