@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python3
 #
 # subNet.py
@@ -26,6 +25,8 @@ def drawVLSMtable(qt, ip, cidr):
 '''
 
 def drawNets(qt, nets):
+    print("\033[1;1H")
+    print("\n"*10)
     for r in qt:
         print('\n')
         for c in r:
@@ -44,9 +45,11 @@ class subNet:
         self.sn = ip & int(256 - 2**(32 - cidr))
         self.bc = self.sn + 2**(32-cidr)-1
         self.col = color
+        self.name = " "
 
 def menu():
     menuOpt = 'X'
+    print("\033[1;1H")
     print("\n\n\n\033[37m" + "Add subnet [A]".rjust(20) + "\033[00m")
     print("\033[37m" + "Delete subnet [D]".rjust(20) + "\033[00m")
     print("\033[37m" + "Reset subnets [R]".rjust(20) + "\033[00m")
@@ -65,7 +68,7 @@ def addSubNet(net, netNum):
     cidr = 0
     colors = ["\033[31m", "\033[32m", "\033[33m", "\033[34m", "\033[35m", "\033[36m", "\033[37m"]
     while(ip < 0 or ip > 255):
-        print("\033[0;0H")
+        print("\033[1;1H")
         ipT = input("\n"*9 + "Enter IP Address: ")
         print("\033[1A" + " "*30)
         if("/" in ipT):
@@ -83,20 +86,29 @@ def addSubNet(net, netNum):
     net.append(subNet(ip, cidr, colors[netNum % len(colors)]))
 
 def delSubNet(net, sortN):
-    print("\033[0;0H")
+    print("\033[1;1H")
     id = int(input("\n"*9 + "Select Subnet to Delete: "))
     print("\033[1A" + " "*30)
     net.remove(sortN[id])
     del sortN[id]
 
+def nameSubNet(sortN):
+    print("\033[1;1H")
+    id = int(input("\n"*9 + "Select Subnet to Name: "))
+    Name = input("Enter Name: ")
+    sortN[id].name = Name
+    print("\033[1A" + " "*30)
+    print("\033[2A" + " "*30)
 
 colors = ["\033[31m", "\033[32m", "\033[33m", "\033[34m", "\033[35m", "\033[36m", "\033[37m"]
 
 print("\033[1J\033[37m" + "Subnet Viewer".rjust(50))
 print("\033[1;10H..." + "\n"*10)
 sortN = [subNet(0, 24, "\033[30m")]
+print("\n" * 13)
 drawNets(qt, sortN)
-print("\033[0;0H")
+# print("\033[15A")
+print("\033[1;1H..")
 menuOpt = menu()
 
 netNum = 0
@@ -109,16 +121,28 @@ while(menuOpt != 'Q'):
         netNum += 1
     elif(menuOpt == 'D'):
         delSubNet(net, sortN)
-        print("\n" * (35 + len(sortN) * 2) + " " * 60 + "-")
+        print("\n" * (36 + len(sortN) * 2) + " " * 60 + "-")
     elif(menuOpt == 'N'):
         print("\n"*40 + "N Selected")
+        nameSubNet(sortN)
     else:
-        print("\n"*40 + "R Selected")
+        netNum = 0
+        netlen = len(net)
+        net = []
+        sortN = [subNet(0, 24, "\033[30m")]
+        print("\033[0K              \033[1J\033[3;0H")
+#        print("\033[1K***\033[3;0H")
+        drawNets(qt, sortN)
+        sortN = []
+        print("\n\n")
+        for L in range(netlen):
+            print(" " * 60 + "\n")
+#        print("\n"*40 + "R Selected")
     print("\033[1;10H..." + "\n"*10)
     drawNets(qt, sortN)
     print("\n\n")
     for n, sN in enumerate(sortN):
-        print(sN.col + "   SubNet {}:  {}/{}  \t Broadcast: {}  \033[00m\n".format(n, sN.sn, sN.cidr, sN.bc))
+        print(sN.col + "   SubNet {}:  {}/{}  \t Broadcast: {}   \t{} \033[00m\n".format(n, sN.sn, sN.cidr, sN.bc, sN.name))
 
     print("\033[0;0H")
     menuOpt = menu()
@@ -186,4 +210,3 @@ while(runAgain == '' or runAgain[0] == 'A'):
         runAgain = 'A'
     print("\033[0A\033[1K                                   ")
 '''
-
