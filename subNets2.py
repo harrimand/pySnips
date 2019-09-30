@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 #
-# subNet.py
+# subNet3.py
 # http://ascii-table.com/ansi-escape-sequences.php
 
 import colorama # colorama required on Windows for font colors
@@ -57,7 +57,7 @@ def menu():
     print("\033[37m" + "Quit [Q]".rjust(20) + "\033[00m")
     while(not(menuOpt in ['A', 'D', 'R', 'N', 'Q'])):
         menuOpt = input("Choose Option: ").upper()
-        print("\033[1A" + " "*30)
+        print("\033[1A" + " "*80)
         if (menuOpt == ''):
             menuOpt = 'A'
         print("\033[1A\033[15C   \033[1A\033[3D")
@@ -86,29 +86,42 @@ def addSubNet(net, netNum):
     net.append(subNet(ip, cidr, colors[netNum % len(colors)]))
 
 def delSubNet(net, sortN):
-    print("\033[1;1H")
-    id = int(input("\n"*9 + "Select Subnet to Delete: "))
-    print("\033[1A" + " "*30)
+    id = -1
+    while(id < 0 or id >= len(sortN)):
+        print("\033[1;1H")
+        id = input("\n"*9 + "Select Subnet to Delete: ")
+        print("\033[1A" + " "*80)
+        try:
+            id = int(id)
+        except ValueError:
+            id = -1
     net.remove(sortN[id])
     del sortN[id]
 
 def nameSubNet(sortN):
-    print("\033[1;1H")
-    id = int(input("\n"*9 + "Select Subnet to Name: "))
+    id = -1
+    while(id < 0 or id >= len(sortN)):
+        print("\033[1;1H")
+        id = input("\n"*9 + "Select Subnet to Name: ")
+        print("\033[1A" + " "*80)
+        try:
+            id = int(id)
+        except ValueError:
+            id = -1
     Name = input("Enter Name: ")
     sortN[id].name = Name
-    print("\033[1A" + " "*30)
-    print("\033[2A" + " "*30)
+    print("\033[1A" + " "*80)
+    print("\033[2A" + " "*80)
 
 colors = ["\033[31m", "\033[32m", "\033[33m", "\033[34m", "\033[35m", "\033[36m", "\033[37m"]
 
 print("\033[1J\033[37m" + "Subnet Viewer".rjust(50))
-print("\033[1;10H..." + "\n"*10)
+print("\033[1;10H" + "\n"*10)
 sortN = [subNet(0, 24, "\033[30m")]
 print("\n" * 13)
 drawNets(qt, sortN)
 # print("\033[15A")
-print("\033[1;1H..")
+print("\033[1;1H")
 menuOpt = menu()
 
 netNum = 0
@@ -121,9 +134,9 @@ while(menuOpt != 'Q'):
         netNum += 1
     elif(menuOpt == 'D'):
         delSubNet(net, sortN)
-        print("\n" * (36 + len(sortN) * 2) + " " * 60 + "-")
+        print("\n" * (36 + len(sortN) * 2) + " " * 80)
     elif(menuOpt == 'N'):
-        print("\n"*40 + "N Selected")
+#        print("\n"*40 + "N Selected")
         nameSubNet(sortN)
     else:
         netNum = 0
@@ -136,77 +149,16 @@ while(menuOpt != 'Q'):
         sortN = []
         print("\n\n")
         for L in range(netlen):
-            print(" " * 60 + "\n")
+            print(" " * 80 + "\n")
 #        print("\n"*40 + "R Selected")
-    print("\033[1;10H..." + "\n"*10)
+    print("\033[1;10H" + "\n"*10)
     drawNets(qt, sortN)
     print("\n\n")
     for n, sN in enumerate(sortN):
-        print(sN.col + "   SubNet {}:  {}/{}  \t Broadcast: {}   \t{} \033[00m\n".format(n, sN.sn, sN.cidr, sN.bc, sN.name))
+        print(sN.col + "   SubNet {}:  {}/{}  \t Broadcast: {}   \t{} \033[00m"\
+        .format(n, sN.sn, sN.cidr, sN.bc, sN.name).ljust(80, ' ') + '\n')
 
-    print("\033[0;0H")
+#    print("\033[0;0H")
+    print("\033[1;1H")
     menuOpt = menu()
 
-
-
-'''
-print("\nIP Address Entry:\n\tOption 1: nnn.nnn.nnn.nnn/hh\n\t\
-Option 2: nnn/hh\n\tOption 3: nnn\n")
-
-netNum = 0
-net = []
-runAgain = 'A'
-while(runAgain == '' or runAgain[0] == 'A'):
-    print("\033[1;2H\033[1K")
-#    print("\033[2J")
-    cidr = 0
-    ip = -1
-    while(ip < 0 or ip > 255):
-        ipT = input("\nEnter IP Address: ")
-        if("/" in ipT):
-            cidr = int(ipT[ipT.rfind("/")+1:])
-            ip = int(ipT[ipT.rfind('.')+1:ipT.rfind("/")])
-        elif(ipT == ''):
-            ip = -1
-        else:
-            ip = int(ipT[ipT.rfind('.')+1:])
-
-    while(cidr < 24 or cidr > 30):
-        cidr = int(input("\nEnter CIDR 24..30 (Number of Subnet Mask bits): "))
-
-    print("\033[2J")
-
-    snAdd = ip & int(256 - 2**(32 - cidr))
-
-    net.append(subNet(ip, cidr, colors[netNum % len(colors)]))
-
-#    print("\nip: {}  cidr: {}".format(ip, cidr))
-#    drawVLSMtable(qt, ip, cidr)
-
-    sortN = sorted(net, key=lambda subnet: subnet.sn)
-
-#    for sN in net:
-#        print(sN.col + "\tSubNet: {}\t Broadcast: {}\033[00m\n".format(sN.sn, sN.bc))
-
-    print("\n\n\tSubnets:\n")
-
-    for n, sN in enumerate(sortN):
-        print(sN.col + "   SubNet {}: {}/{}\t Broadcast: {}\033[00m\n".format(n, sN.sn, sN.cidr, sN.bc))
-
-    netNum += 1
-
-    drawNets(qt, sortN)
-
-    runAgain = menu()
-
-#    runAgain = input("\n\nRun Again? [Y | N] or Reset[R]: ").upper()
-    if(not(runAgain == '') and runAgain[0] == 'R'):
-        netNum = 0
-        net = []
-        sortN = [subNet(0, 24, "\033[30m")]
-        print("\033[0K              \033[1J\033[3;0H")
-#        print("\033[1K***\033[3;0H")
-        drawNets(qt, sortN)
-        runAgain = 'A'
-    print("\033[0A\033[1K                                   ")
-'''
