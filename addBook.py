@@ -12,19 +12,36 @@ def del_member(keys, Data): # Function Not Complete Yet
     print("\nDeleting Member Function Not Complete\n")
 
 def print_membership(keys, Data):
-    print('\nMembership:\n')
+    colWidth = colSize(keys, Data)
+    print('\nMembership:')
     for d in range(len(Data)):
-        for k in keys:
-            print(Data[d][k].ljust(20), end = ' ')
-        print('')
-    print('\n')
+        print('\n\t', end='')
+        for i, k in enumerate(keys):
+            print(Data[d][k].ljust(colWidth[i] + 2), end = ' ')
+    print('\n\n')
+
+def del_column(keys, Data):
+	delKey = input("\nEnter Column Name: ")
+	if (delKey in keys):
+		for D in Data:
+			D.pop(delKey)
+		keys.remove(delKey)
+	else:
+		print("\nKey Not Found")
+
+def add_column(keys, Data):
+	newKey = input("\nEnter Column Label (no Spaces): ")
+	default = input("\nEnter Default Value for new column: ")
+	for D in Data:
+		D.update({newKey:default})
+	keys.append(newKey)
 
 def quit(keys, Data):
     print("Thank You for using my Address Book\n")
 
 def menu():
-    print("\nOptions:\na = add member\nd = delete member\np = print membership\nq = quit\n")
-
+    print("\nOptions:\na = add member\nd = delete member\ndc = delete column\nac = add column\n\
+	p = print membership\nq = quit\n")
 
 def get_info(keys, Data):
     info = {}
@@ -34,8 +51,12 @@ def get_info(keys, Data):
         info[k] = input("Enter " + k + ": ")
     return info
 
+def colSize(keys, Data):
+	cS = [max([len(Data[n][k]) for n in range(len(Data))]) for k in keys]
+	# print("\nColumn Widths: ", cS)
+	return cS
 
-opts = {'a': add_member, 'd': del_member, 'p': print_membership, 'q': quit}
+opts = {'a': add_member, 'd': del_member, 'dc': del_column, 'ac': add_column, 'p': print_membership, 'q': quit}
 
 keys = ['Index', 'first_name', 'last_name', 'address', 'city']
 
@@ -60,8 +81,9 @@ print('\n\n')
 menu()
 choice = ' '
 while(choice != 'q'):
-    choice = input("Choose Option a, d, p or q: ")
-    if choice in opts.keys():
+    print("Input Options: ", list(opts.keys()))
+    choice = input("Choose Option: ")
+    if choice in list(opts.keys()):
         opts[choice](keys, Data)
 
 print('\n\n')
