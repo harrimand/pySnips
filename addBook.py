@@ -90,8 +90,8 @@ def quit(keys, Data):
 	print("Thank You for using my Address Book\n")
 
 def menu():
-    print("\nOptions:\na = add member\nd = delete member\ndc = delete column\nac = add column\n\
-p = print membership\nw = write file\nq = quit\n")
+    print("\nOptions:\na = add member\nd = delete member\ne = edit member\ndc = delete column\n\
+ac = add column\np = print membership\nw = write file\nq = quit\n")
 
 def get_info(keys, Data):
     info = {}
@@ -106,12 +106,12 @@ def colSize(keys, Data):
 	# print("\nColumn Widths: ", cS)
 	return cS
 
-
 Data = []
 keys = []
 # read_file('.\\addBook.csv', keys, Data)
 
-opts = {'a': add_member, 'd': del_member, 'dc': del_column, 'ac': add_column, 'p': print_membership, 'w': write_file, 'q': quit}
+opts = {'a': add_member, 'd': del_member, 'e': edit_member, 'dc': del_column, 'ac': add_column,\
+'p': print_membership, 'w': write_file, 'q': quit}
 
 # keys = ['Index', 'first_name', 'last_name', 'address', 'city']
 
@@ -150,11 +150,11 @@ print("DATA: ", Data)
 print("KEYS:", keys)
 '''
 
-print(Data[search(keys, Data)])
+# print(Data[search(keys, Data)])
 
 print('\n\n')
 
-edit_member(keys, Data)
+# edit_member(keys, Data)
 
 print('\n\n')
 
