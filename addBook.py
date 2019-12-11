@@ -1,4 +1,3 @@
-
 import csv
 
 # Data = [{'Index': '0', 'first_name': 'Darrell', 'last_name': 'Harriman', 'address': '1234 Apple Way', 'city': 'Apple Valley'}]
@@ -66,7 +65,7 @@ def search(keys, Data):
     find = input("Enter " + keys[int(select) - 1] + " to search for: ")
     result = []
     for D in Data:
-        if(D[keys[int(select) - 1]] == find):
+        if(find.upper() in D[keys[int(select) - 1]].upper()):
             result.append(D)
     print("\nFound ", len(result), " results")
     print_membership(keys, result)
@@ -75,6 +74,12 @@ def search(keys, Data):
         if(D['id'] == chosenResult):
             return i
     return -1
+
+def look_up(keys, Data):
+    mem = search(keys, Data)
+    for k in keys:
+        print(Data[mem][k], end='   ')
+    print('\n\n')
 
 def add_column(keys, Data):
 	newKey = input("\nEnter Column Label (no Spaces): ")
@@ -90,8 +95,8 @@ def quit(keys, Data):
 	print("Thank You for using my Address Book\n")
 
 def menu():
-    print("\nOptions:\na = add member\nd = delete member\ne = edit member\ndc = delete column\n\
-ac = add column\np = print membership\nw = write file\nq = quit\n")
+    print("\nOptions:\n\ta  = add member\n\td  = delete member\n\te  = edit member\n\tdc = delete column\n\t\
+ac = add column\n\tp  = print membership\n\ts  = search\n\tw  = write file\n\tq  = quit\n")
 
 def get_info(keys, Data):
     info = {}
@@ -111,7 +116,7 @@ keys = []
 # read_file('.\\addBook.csv', keys, Data)
 
 opts = {'a': add_member, 'd': del_member, 'e': edit_member, 'dc': del_column, 'ac': add_column,\
-'p': print_membership, 'w': write_file, 'q': quit}
+'p': print_membership, 's': look_up, 'w': write_file, 'q': quit}
 
 # keys = ['Index', 'first_name', 'last_name', 'address', 'city']
 
@@ -129,7 +134,7 @@ newmem2 = [str(Ind), 'Frank', 'Enstien', '666 Muddy Road', 'CreepyVille']
 newData = dict(zip(keys, newmem2))
 Data.append(newData)
 '''
-print('\n\n')
+# print('\n\n')
 '''
 newData = dict(zip(keys, newmem))
 Data.append(newData)
@@ -152,7 +157,7 @@ print("KEYS:", keys)
 
 # print(Data[search(keys, Data)])
 
-print('\n\n')
+# print('\n\n')
 
 # edit_member(keys, Data)
 
@@ -165,6 +170,8 @@ while(choice != 'q'):
     choice = input("Choose Option: ")
     if choice in list(opts.keys()):
         opts[choice](keys, Data)
+    else:
+       menu() 
 
 '''
 print('\n\n')
@@ -177,4 +184,3 @@ print('\n\n')
 for d in range(len(Data)):
     print(Data[d]['id'], Data[d]['first_name'])
 '''
-
