@@ -1,5 +1,10 @@
-id,first_name,last_name,address,city
-1,Darrell,Harriman,123 Dirt Road,Apple Valley
-2,Isabelle,Ramos,234 ZigZag St.,Small Town
-3,Eor,Donkey,345 Grassy Meadow,Big Field
-4,Barney,Rubble,222 Cobblestone Rd.,Bedrock
+id,first_name,last_name,address,city,zip
+1,Darrell,Harriman,123 Dirt Road,Apple Valley,92307
+2,Isabelle,Ramos,234 ZigZag St.,Small Town,00000
+3,Eor,Donkey,345 Grassy Meadow,Big Field,00000
+4,Barney,Rubble,222 Cobblestone Rd.,Bedrock,00000
+5,Isabelle,Ramos,234 ZigZag St.,Apple Valley,00000
+6,Frank,Enstien,666 Muddy Road,CreepyVille,00000
+7,First,Last,Address,City,00000
+8,myFirst,myLast,myAddress,myCity,00000
+9,Daffy,Duck,333 Riverbed,Duckville,33333
