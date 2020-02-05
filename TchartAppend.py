@@ -5,17 +5,16 @@ import matplotlib.pyplot as plt
 def setWindowPos():
     F = plt.gcf()
     Size = F.get_size_inches()
-    F.set_size_inches(Size[0]*6, Size[1]*3, forward=True)
+    F.set_size_inches(Size[0]*4, Size[1]*2, forward=True)
     plt.show()
 
 # imps = qm.impStr2impList("..3 7..11 14..16 24..28 30..")
-# imps = qm.impStr2impList("..2 9..13 15..19 26..28 30..")
+imps = qm.impStr2impList("..2 9..13 15..19 26..28 30..")
 # imps = qm.impStr2impList("1..5 7 9..13 15 17..21 23 25..29")
 # imps = qm.impStr2impList("0 1 2 4 5 7 9 10 12 13 15 17 18 20 21 23 25 26 28 29")
 # imps = qm.impStr2impList("1 2 3 5 7 9 10 11 13 15 17 18 19 21 23 25 26 27 29 31")
 # imps = qm.impStr2impList("1 2 5 6 9 10 13 14 16 17 20 21 24 25 28 29")
-imps = qm.impStr2impList("0 2 3 5 6 7 9 10 11 12 14 15 16 17 18 20 21 22 23 24 25 27 28 29 30 31")
-
+# imps = qm.impStr2impList("0 2 3 5 6 7 9 10 11 12 14 15 16 17 18 20 21 22 23 24 25 27 28 29 30 31")
 
 
 bitsIn = max(imps).bit_length()
@@ -64,5 +63,3 @@ for V in range(bitsIn):
 plt.text(-.5, bitsIn - 1.6 - V, 'Q', fontsize=30, fontweight='bold', ha='center', va='center')
 
 setWindowPos()
-
-
