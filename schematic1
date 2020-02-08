@@ -1,0 +1,48 @@
+
+# https://cdelker.bitbucket.io/SchemDraw/
+
+import SchemDraw
+import SchemDraw.elements as e
+import numpy as np
+
+d = SchemDraw.Drawing()
+V1 = d.add(e.SOURCE_V, label='12V')
+R1 = d.add(e.RES, d='right', label='100$\Omega$')
+d.add(e.DOT)
+d.push()
+R2 = d.add(e.RES, d='down', label='50$\Omega$')
+d.add(e.DOT)
+d.pop()
+d.pop()
+L1 = d.add(e.LINE)
+R3 = d.add(e.RES, d='down', label='150$\Omega$')
+R4 = d.add(e.RES, d='left', label='75$\Omega$')
+R5 = d.add(e.RES, d='left', label='75$\Omega$')
+
+d.pop()
+L3 = d.add(e.LINE, d='down')
+R6 = d.add(e.RES, d='right', label='50$\Omega$')
+V2 = d.add(e.SOURCE_V, d='right', label='18V')
+L4 = d.add(e.LINE, d='up')
+
+d.loopI([R1, R2, R4, V1], d='cw', label='$I_1$', pad=.5)
+d.loopI([R1, R3, R4, R2], d='cw', label='$I_2$', pad=.5)
+d.loopI([R5, L4, R6, L3], d='cw', label='$I_3$', pad=.5)
+
+L1R = 225
+L2R = 275
+L3R = 200
+
+L = np.matrix([[-L1R, 50, 75], [50, -L2R, 75], [75, 75, -L3R]])
+V = [[-12], [0], [18]]
+I = L.I * V
+
+print('\n\n')
+for Loop in L:
+    print(Loop)
+
+print('\n', V)
+
+print('\n', I)
+
+d.draw()
