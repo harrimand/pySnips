@@ -40,12 +40,11 @@ def printExpStr(n, PF):
 F = []
 if len(sys.argv) > 1:
     n = sys.argv[1:]
-    for N in n:
-        F.append(prime_factors(int(N)))
+    F = [prime_factors(int(N)) for N in n]
 else:
     print('\nNo User Input!  Using test number.')
     n = 1366776851540808708000000
-    F.append(prime_factors(int(n)))
+    F = list(prime_factors(n))
 
 prWidth = max([len(str(fact)) for fact in n]) + 2 
 
@@ -56,9 +55,6 @@ for pf, arg in zip(F, n):
     print('\n')
 
 Fs = set(F[0])
-# Fs = list(set(F[0])).sort()
-# GC = [s ** min(F[0].count(s), F[1].count(s)) for s in Fs if min(F[0].count(s), F[1].count(s))]
-
 GC = [s ** min([F[Fs].count(s) for Fs in range(len(F))]) for s in Fs if min([F[Fs].count(s) for Fs in range(len(F))])]
 
 GCF = 1 
