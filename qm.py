@@ -583,6 +583,49 @@ def qmSimp(thing, DontCare=[], includeVars=""):
 
 #------------------------------------------------------------
 
+def qmHelp():
+    print('\tgetVars(sop):')
+    print('\tsop2imps(sop, vars):')
+    print('\timpStr2impList(impStr):')
+    print('\ttt2ssop(data, dontCare):')
+    print('\ttt2usop(data):')
+    print('\tsubVars(SOP, oldVars, newVars):')
+    print('\tsop2htm(sop):')
+    print('\tsubSop2qm(mySop):')
+    print('\tsubQm2sop(qmSop, mySop):')
+    print('\tqmSimp(thing, DontCare=[], includeVars=""):')
+
+    print('_'*80, '\n\n\t\tExample Usage:\n')
+
+    print(" from qm import *")
+    print(" impStr = '1.. 5 7..9, 11'")
+    print(" dcStr = '12..'")
+    print(" tt = impStr2impList(impStr)")
+    print(" tt")
+    print(" [1, 5, 7, 8, 9, 11]")
+    print(" dc = impStr2impList(dcStr)")
+    print(" dc")
+    print(" [12, 13, 14, 15]")
+    print(" usop = tt2usop(tt)")
+    print(" usop")
+    print(" '!A!B!CD + !AB!CD + !ABCD + A!B!C!D + A!B!CD + A!BCD'")
+    print(" ssop = tt2ssop(tt, dc)")
+    print(" ssop")
+    print(" '!CD + A!C + AD + BD'")
+    print(" Vars = getVars(usop)")
+    print(" Vars")
+    print(" ['A', 'B', 'C', 'D']")
+    print(" terms = ssop.split(' + ')")
+    print(" terms")
+    print(" ['!CD', 'A!C', 'AD', 'BD']")
+    print(" for t in terms:")
+    print("     print('\\n\\t', t.ljust(8, '_'), sop2imps(t, Vars))")
+
+    print("\n\t", "!CD".ljust(8, "_"), "[1, 5, 9, 13]")
+    print("\n\t", "A!C".ljust(8, "_"), "[8, 9, 12, 13]")
+    print("\n\t", "AD".ljust(8, "_"), "[9, 11, 13, 15]")
+    print("\n\t", "BD".ljust(8, "_"), "[5, 7, 13, 15]")
+    print('\n\n', '_'*80, '\n\n')
 
 #------------------------------------------------------------
 
