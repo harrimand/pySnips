@@ -1,5 +1,3 @@
-
-
 from qm import *
 import numpy as np
 from logic.logic import *
@@ -13,7 +11,7 @@ class lv():
 
     def ttIn(self, nb):
         self.tt = [[int(b) for b in np.array(list(bin(n)[2:].zfill(self.nb)))] for n in np.arange(2 ** self.nb)]
-    
+
     def cols(self):
         return list(map(list, zip(*self.tt)))
 
@@ -27,8 +25,9 @@ class lv():
         self.Labels = lblList
 
     def logicPlot(self, Labels=[]):
-        bitSize = len(Q[0])
+        bitSize = len(self.tt[0])
         Q = np.transpose(self.tt)
+#         bitSize = self.nb
         bSx = []
         bSy = []
         for S in Q:
@@ -59,13 +58,20 @@ class lv():
 
         sY = [[B + N * 2 for B in bSy[N]] for N in range(bitSize)]
     #     print(sY)
+'''
+        print("X"*60, "\n\n")
+        print("bitSize: ", bitSize)
+        print("sy: \n",  sY)
+        print("X"*60, "\n\n")
+'''
 
         # Data Plots
         for n in range(bitSize):
             ax.plot(bSx[n], sY[n], linewidth=3)
 
         # Stem Plot Markers
-        for n in range(2**numBits):
+#         for n in range(2**numBits):
+        for n in range(2**self.nb):
             plt.plot([n+.5, n+.5], [0, 2**(bitSize-1)], ':r')
 
         ax.set_title("Logic Plot", fontsize=20, fontweight="bold")
@@ -73,15 +79,17 @@ class lv():
         ax.xaxis.grid(False)
         ax.yaxis.grid(True)
         ax.set_yticklabels([])
-        ax.set_xticks([n for n in range(2**numBits + 1)])
+#         ax.set_xticks([n for n in range(2**numBits + 1)])
+        ax.set_xticks([n for n in range(2**self.nb + 1)])
         ax.set_ylim(0, bitSize * 2)
 
     #     Labels = ["A", "B", "C", "D", "A$\oplus$C", "B$\oplus$D", "(A$\oplus$C) & (B$\oplus$D)"]
-        plotLabels(Labels)
+#         plotLabels(Labels)
+        self.plotLabels(Labels)
 
         plt.text(1, -.75, "Plotted using Python and Matplotlib by Darrell Harriman", fontweight="bold")
 
-        plt.ion()
+#         plt.ion()
 
         plt.show()
 
@@ -100,10 +108,14 @@ x3 = AND(x1, x2)
 
 T.newCol([x1, x2, x3])
 
+Labels = ["A", "B", "C", "D", "$x1 = A \oplus C$", "$x2 = B \oplus D$", "$x1 \cdot x2$"]
+
+
 print("\t\t")
 for t in T.tt:
     print(t)
 
-T.logicPlot()
+T.logicPlot(Labels)
 
-
+    
+    
