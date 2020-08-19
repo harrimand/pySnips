@@ -1,4 +1,4 @@
-from qm import *
+# from qm import *
 import numpy as np
 from logic.logic import *
 import matplotlib.pyplot as plt
@@ -7,6 +7,8 @@ class lv():
     def __init__(self, numBits):
         self.nb = numBits
         self.tt = ttIn(numBits)
+        self.fig = plt.figure()
+        self.ax = self.fig.add_subplot(1, 1, 1)
         self.Labels = []
 
     def ttIn(self, nb):
@@ -21,7 +23,8 @@ class lv():
     def plotLabels(self, labels):
         lblList = []
         for h, L in enumerate(labels):
-            lblList.append(plt.text(-.5, h*2+1.25, L, fontsize=20, fontweight="bold"))
+            # lblList.append(plt.text(-.5, h*2+1.25, L, fontsize=20, fontweight="bold"))
+            lblList.append(self.ax.text(-.5, h*2+1.25, L, fontsize=20, fontweight="bold"))
         self.Labels = lblList
 
     def logicPlot(self, Labels=[]):
@@ -52,48 +55,51 @@ class lv():
             bSy.append(bTemp)
             bSx.append(bSt)
 
-        fig = plt.figure()
-        ax = fig.add_subplot(1, 1, 1)
-        fig.set_size_inches(18, 6, forward=True)
+#         fig = plt.figure()
+#         ax = fig.add_subplot(1, 1, 1)
+        self.fig.set_size_inches(18, 6, forward=True)
 
         sY = [[B + N * 2 for B in bSy[N]] for N in range(bitSize)]
-    #     print(sY)
-'''
+#        print(sY)
+        '''
         print("X"*60, "\n\n")
         print("bitSize: ", bitSize)
         print("sy: \n",  sY)
         print("X"*60, "\n\n")
-'''
+        '''
 
         # Data Plots
         for n in range(bitSize):
-            ax.plot(bSx[n], sY[n], linewidth=3)
+            self.ax.plot(bSx[n], sY[n], linewidth=3)
 
         # Stem Plot Markers
 #         for n in range(2**numBits):
         for n in range(2**self.nb):
-            plt.plot([n+.5, n+.5], [0, 2**(bitSize-1)], ':r')
+            # plt.plot([n+.5, n+.5], [0, 2**(bitSize-1)], ':r')
+            self.ax.plot([n+.5, n+.5], [0, 2**(bitSize-1)], ':r')
 
-        ax.set_title("Logic Plot", fontsize=20, fontweight="bold")
+        self.ax.set_title("Logic Plot", fontsize=20, fontweight="bold")
         # ax.set_ylabel("<--Msb---Lsb-->", fontsize=16)
-        ax.xaxis.grid(False)
-        ax.yaxis.grid(True)
-        ax.set_yticklabels([])
+        self.ax.xaxis.grid(False)
+        self.ax.yaxis.grid(False)
+        self.ax.set_yticklabels([])
 #         ax.set_xticks([n for n in range(2**numBits + 1)])
-        ax.set_xticks([n for n in range(2**self.nb + 1)])
-        ax.set_ylim(0, bitSize * 2)
+        self.ax.set_xticks([n for n in range(2**self.nb + 1)])
+        self.ax.set_ylim(0, bitSize * 2)
 
     #     Labels = ["A", "B", "C", "D", "A$\oplus$C", "B$\oplus$D", "(A$\oplus$C) & (B$\oplus$D)"]
 #         plotLabels(Labels)
         self.plotLabels(Labels)
 
-        plt.text(1, -.75, "Plotted using Python and Matplotlib by Darrell Harriman", fontweight="bold")
+        # plt.text(1, -.75, "Plotted using Python and Matplotlib by Darrell Harriman", fontweight="bold")
+        self.ax.text(1, -.75, "Plotted using Python and Matplotlib by Darrell Harriman", fontweight="bold")
 
 #         plt.ion()
 
         plt.show()
 
-
+#---------------------------------------------------------------------------------------------------------
+'''
 T = lv(4)
 print(T.tt)
 A, B, C, D = T.cols()
@@ -116,6 +122,8 @@ for t in T.tt:
     print(t)
 
 T.logicPlot(Labels)
+'''
 
     
     
+
