@@ -15,7 +15,7 @@ bit = lambda b, numbits: [n//(2**b)%2 for n in range(2**numbits)]
 
 ttIn = lambda nb:[[int(b) for b in np.array(list(bin(n)[2:].zfill(nb)))] for n in np.arange(2**nb)]
 colImps = lambda t, c: [int(n) for n in np.where(t[:,c] == 1)[0]]
-imps = lambda tc: list([n for n in np.where(np.array(tc) == 1)][0])
+imps = lambda tc: list([int(n) for n in np.where(np.array(tc) == 1)][0])
 npcolb = lambda t, c: [b for b in t[:,c]]
 colb = lambda t, c: [t[n][c] for n in range(2**(len(t[0])))]
 npArr2List = lambda npList: [[int(t) for t in s] for s in npList]
