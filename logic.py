@@ -44,7 +44,7 @@ def NotAND(*argv):
         Q = A[0]
         for a in A[1:]:
             Q = Q and a
-        QList.append(int(not Q)) 
+        QList.append(int(not Q))
     return QList
 
 def NAND(*argv):
@@ -66,6 +66,7 @@ def OR(*argv):
             Q = Q or a
         QList.append(int(Q))
     return QList
+
 
 # M = list(map(list, zip(a, b, c)))
 
@@ -108,4 +109,92 @@ def XNOR(*argv):
             Q = not(Q ^ a)
         QList.append(int(Q))
     return QList
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
+A = bit(3, 4) # bit 3 of 4 bits
+B = bit(2, 4) # bit 2 of 4 bits
+C = bit(1, 4) # bit 1 of 4 bits
+D = bit(0, 4) # bit 0 of 4 bits
+
+
+def table(nbits):
+    N = np.arange(2**nbits)
+    BN = np.array([[int(b) for b in bin(n)[2:].zfill(int(max(N)).bit_length())] for n in N])
+    return BN
+
+BN = table(4)
+print(BN)
+
+A = BN[:,0]
+B = BN[:,1]
+C = BN[:,2]
+D = BN[:,3]
+
+print('\n\n')
+
+print('\n\nA: ', A)
+print('\n\nB: ', B)
+print('\n\nC: ', C)
+print('\n\nD: ', D)
+
+print('\n\n')
+
+
+
+# Qssop:  !B!C + A!C + BC + CD
+
+print("Q = A ^ B XOR C ^ D OR B ^ C")
+print("Q = OR(XOR(AND(A, B), AND(C, D)), XOR(B, C))")
+print("Q2 = OR(AND(C, XOR(A, D)), XOR(B, C))")
+Q = np.array(OR(XOR(AND(A, B), AND(C, D)), XNOR(B, C)))
+Q2 = np.array(OR(OR(AND(A, NOT(C)), XNOR(B, C)), AND(C, D)))
+
+print('Q: ', Q)
+
+Qi = np.where(Q == 1)
+Qi2 = np.where(Q2 == 1)
+print('\n')
+
+Qimps = [int(n) for n in Qi[0]]
+Qimps2 = [int(n) for n in Qi2[0]]
+
+Vars = [chr(n) for n in range(65, 69)]
+print('Vars: ', Vars)
+
+dc = []
+Qssop = tt2ssop(Qimps, dc)
+Qssop2 = tt2ssop(Qimps2, dc)
+
+print('\n')
+print('Qssop: ', Qssop)
+print('Qssop2: ', Qssop2)
+
+print('\n\n')
+'''
+
 

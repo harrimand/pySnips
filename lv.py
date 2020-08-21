@@ -12,15 +12,20 @@ class lv():
         self.Labels = []
 
     def ttIn(self, nb):
+        """Create 2D array of binary bits for truth table input from 0 to 2**nb"""
         self.tt = [[int(b) for b in np.array(list(bin(n)[2:].zfill(self.nb)))] for n in np.arange(2 ** self.nb)]
 
     def cols(self):
+        """ Return list for each column in truth table.
+            Example:  A, B, C, D = tt.cols()"""
         return list(map(list, zip(*self.tt)))
 
     def newCol(self, newCols):
+        """Append new columns to truth table """
         self.tt = np.hstack((self.tt, list(map(list, zip(*newCols)))))
 
     def plotLabels(self, labels):
+        """Draw list of labels for each plot on figure"""
         lblList = []
         for h, L in enumerate(labels):
             # lblList.append(plt.text(-.5, h*2+1.25, L, fontsize=20, fontweight="bold"))
@@ -28,6 +33,8 @@ class lv():
         self.Labels = lblList
 
     def logicPlot(self, Labels=[]):
+        """Create a figure and plot traces for each column on the truth table.
+            Labels are sorted for each column from left to right and will be drawn on figure"""
         bitSize = len(self.tt[0])
         Q = np.transpose(self.tt)
 #         bitSize = self.nb
@@ -57,7 +64,8 @@ class lv():
 
 #         fig = plt.figure()
 #         ax = fig.add_subplot(1, 1, 1)
-        self.fig.set_size_inches(18, 6, forward=True)
+        figHeight = int(bitSize * 1.5 + 2)
+        self.fig.set_size_inches(18, figHeight, forward=True)
 
         sY = [[B + N * 2 for B in bSy[N]] for N in range(bitSize)]
 #        print(sY)
@@ -124,6 +132,5 @@ for t in T.tt:
 T.logicPlot(Labels)
 '''
 
-    
-    
+
 
