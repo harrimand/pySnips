@@ -225,7 +225,7 @@ def sop2imps(sop, vars):
     return coverImps
 
 #------------------------------------------------------------
-def impStr2impList(impStr):
+def impStr2impList(impStr, sort=1):
     '''Parameter:  A string containing decimal integers seperated by commas or
     spaces.  Range operators (..) are interpreted as follows:
     ..3 [0, 1, 2, 3]  #include all integers from 0 to 3
@@ -253,7 +253,8 @@ def impStr2impList(impStr):
             for n in range(int(i[:i.find("..")]),int(i[i.find("..")+2:])+1):
                if n not in decimps:
                   decimps.append(n)
-    decimps.sort()
+    if(sort):
+        decimps.sort()
     return decimps
 
 #------------------------------------------------------------
