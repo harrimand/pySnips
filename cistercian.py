@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 
 # 4 digit decimal to Cistercian number
 # https://hackaday.io/project/178131-monklock 
@@ -69,7 +70,5 @@ print("\ttimeDate()  : Show current time hhmm, MMDD, YYYY\n\
     \tdspCist(N)  : Display 4 digit number in Cistercian formap\n\
     \tcistChar(N) : Create 5x7 Matrix representing Cistercian number\n")
 
-timeDate()
-
-
-
+if __name__ == "__main__":
+    timeDate()
