@@ -1,3 +1,4 @@
+
 #! /usr/bin/env python
 
 # 4 digit decimal to Cistercian number
@@ -8,7 +9,7 @@ from os import system
 import numpy as np
 from time import strftime
 
-cls = lambda: system("clear")
+cls = lambda: system("cls")
 
 pc1=   [[[' ', ' '],[' ', ' '],[' ', ' ']],[['o', 'o'],[' ', ' '],[' ', ' ']],
         [[' ', ' '],[' ', ' '],['o', 'o']],[[' ', ' '],['o', ' '],[' ', 'o']],
@@ -32,8 +33,30 @@ def cistChar(N):
 
     pcr = np.vstack((pc1[on],pcf, pc100[hu]))
     pcl = np.vstack((pc10[te],pcf, pc1000[th]))
-    pch = np.hstack((pcl, pcc, pcr))
-    return pch
+    pc = np.hstack((pcl, pcc, pcr))
+    return pc
+
+def cistChars(M):
+    ''' Read list of 4 digit integers.   Horizontally stack multiple 5x7
+     matrices to display multiple Cistercian numbers'''
+    spc = [[' '],[' '],[' '],[' '],[' '],[' '],[' ']]
+    # disp = cistChar(M[0])
+    disp = spc
+    for i, N in enumerate(M):
+        if(i < (len(M))):
+            disp = np.hstack((disp, spc, spc))
+        disp = np.hstack((disp, cistChar(N)))
+    disp = np.hstack((disp, spc))
+    return disp
+
+def printMat(mat):
+    print('\n')
+    for r in mat:
+        print('\t', end='')
+        for ch in r:
+            print(ch, end=' ')
+        print('')
+    print('\n')
 
 def dspCist(N):
     ''' Display decimal number from 0 to 9999 in Cistercian
@@ -41,12 +64,7 @@ def dspCist(N):
     assert(N <= 9999 and N >= 0), "Number out of range"
     print('\n\t')
     cist = cistChar(N)
-    for r in cist:
-        print('\t', end='')
-        for ch in r:
-            print(ch, end=' ')
-        print('')
-    print('\n\n')
+    printMat(cist)
 
 def timeDate():
     ''' Display 3 Cistercian numbers representing 24 hour time
@@ -59,16 +77,12 @@ def timeDate():
     spc = [[' '],[' '],[' '],[' '],[' '],[' '],[' ']]
     disp = np.hstack((hm, spc, spc, md, spc, spc, yy))
     print('\n')
-    for r in disp:
-        print('\t', end='')
-        for ch in r:
-            print(ch, end=' ')
-        print('')
-    print('\n\n')
-
-print("\ttimeDate()  : Show current time hhmm, MMDD, YYYY\n\
-    \tdspCist(N)  : Display 4 digit number in Cistercian formap\n\
-    \tcistChar(N) : Create 5x7 Matrix representing Cistercian number\n")
+    printMat(disp)
+#     return disp
 
 if __name__ == "__main__":
     timeDate()
+else:
+    print("\ttimeDate()  : Show current time hhmm, MMDD, YYYY\n\
+        \tdspCist(N)  : Display 4 digit number in Cistercian formap\n\
+        \tcistChar(N) : Create 5x7 Matrix representing Cistercian number\n")
