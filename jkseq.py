@@ -39,7 +39,8 @@ from os import system
 
 cls = lambda: system("clear")
 
-seq = [0, 1, 3, 2, 6, 7, 5, 4, 12, 13, 15, 14, 10, 11, 9, 8]
+# seq = [0, 1, 3, 2, 6, 7, 5, 4, 12, 13, 15, 14, 10, 11, 9, 8]
+seq = [0, 4, 8, 12, 3, 7, 11, 15, 1, 5, 9, 13, 2, 6, 10, 14]
 jin = ['0', '1', 'X', 'X']
 kin = jin[::-1]
 seqbin = [[int(b) for b in bin(B)[2:].zfill(4)] for B in seq]
