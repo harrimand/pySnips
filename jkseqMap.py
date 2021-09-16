@@ -14,6 +14,14 @@ KM = [karnaughMap(Q, 10) for Q in Qseq]
 for i in range(0,7,2):
     print('\n\t', jkCols[i], ' '*40, jkCols[i+1])
     for J, K in zip(KM[i], KM[i+1]):
+        J = J.replace('A ', 'Q3')
+        J = J.replace('B ', 'Q2')
+        J = J.replace('C ', 'Q1')
+        J = J.replace('D ', 'Q0')
+        K = K.replace('A ', 'Q3')
+        K = K.replace('B ', 'Q2')
+        K = K.replace('C ', 'Q1')
+        K = K.replace('D ', 'Q0')
         print(J, K)
 
 '''
