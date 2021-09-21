@@ -12,6 +12,12 @@ Qseq = [[jkdF.loc[n, Qn][0] for n in gcs] for Qn in jkCols]
 
 KM = [karnaughMap(Q, 10) for Q in Qseq]
 
+def Qsub(SOP):
+    RR = (('A', 'Q3'), ('B', 'Q2'), ('C', 'Q1'), ('D', 'Q0'))
+    for R in RR:
+        SOP = SOP.replace(*R)
+    return SOP
+
 for S in KM: 
     S[2] = S[2].replace('C ', 'Q1')
     S[9] = S[9].replace('B ', 'Q2')
@@ -31,7 +37,7 @@ for I, D in zip(IMPS, DCimps):
     print(jkCols[i])
     print('IT: ', I)
     print('DC: ', D)
-    print(F'{jkCols[i]} = ', qm.tt2ssop(I, D)) 
+    print(F'{jkCols[i]} = ', Qsub(qm.tt2ssop(I, D))) 
     i += 1
 
 print('\n\n')
