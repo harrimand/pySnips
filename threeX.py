@@ -29,6 +29,7 @@ if __name__ == "__main__":
 #    print(thrX)
 
 '''
+thrxLen = [len(threeX(n)) for n in range(1, 100)]
 thrXlenD = {}
 for i, n in enumerate(thrXlen):
     thrXlenD[i] = n
