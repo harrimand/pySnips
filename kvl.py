@@ -9,6 +9,7 @@ rv = [10.0, 11.0, 12.0, 13.0, 15.0, 16.0, 18.0, 20.0, 22.0, 24.0, 27.0, 30.0,
 
 V = 5
 mv = {str(r)+' | '+str(s) : V * r / (r + s) for r in rv for s in rv}
+Vlist = [float(f"{n:.2f}") for n in mv.values()]
 
 def rpair(Vs, Vo):
     '''
