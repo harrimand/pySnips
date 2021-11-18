@@ -9,7 +9,20 @@ rv = [10.0, 11.0, 12.0, 13.0, 15.0, 16.0, 18.0, 20.0, 22.0, 24.0, 27.0, 30.0,
 
 V = 5
 mv = {str(r)+' | '+str(s) : V * r / (r + s) for r in rv for s in rv}
+# mvnp = np.array(list(mv.values()))
+
 Vlist = [float(f"{n:.2f}") for n in mv.values()]
+
+
+def vclose(Vin, Vout, tol):
+    ''' list resistor pairs from rpair(Vs, Vo) results that
+    output Volts with tolerance tol '''
+    mv = {str(r)+' | '+str(s) : Vin * r / (r + s) for r in rv for s in rv}
+    mvnp = np.array(list(mv.values()))
+    VcloseInd = np.where(np.less(np.abs(mvnp - Vout), tol))
+    Vclose = [list(mv.keys())[n] for n in list(VcloseInd[0])]
+    return Vclose
+
 
 def rpair(Vs, Vo):
     '''
