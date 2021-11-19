@@ -1,8 +1,7 @@
 
-
 import numpy as np
 from os import system
-cls = lambda: system("clear")
+cls = lambda: system("cls")
 
 rv = [10.0, 11.0, 12.0, 13.0, 15.0, 16.0, 18.0, 20.0, 22.0, 24.0, 27.0, 30.0,
         33.0, 36.0, 39.0, 43.0, 47.0, 51.0, 56.0, 62.0, 68.0, 75.0, 82.0, 91.0]
@@ -21,7 +20,16 @@ def vclose(Vin, Vout, tol):
     mvnp = np.array(list(mv.values()))
     VcloseInd = np.where(np.less(np.abs(mvnp - Vout), tol))
     Vclose = [list(mv.keys())[n] for n in list(VcloseInd[0])]
+    dspVdiv(Vin, Vclose)
     return Vclose
+
+def dspVdiv(Vin, RList):
+    for R in RList:
+        R0 = float(R.split()[0])
+        R1 = float(R.split()[-1])
+        print(f"\n\tVout = {Vin} * {R0} / ({R0} + {R1}) = {Vin * R0 / (R0 + R1):.3F}\n")
+    print('\n')
+
 
 
 def rpair(Vs, Vo):
