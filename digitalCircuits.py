@@ -9,7 +9,7 @@ cls = lambda: system("cls")
 Btxt = [bin(n)[2:].zfill(4) for n in range(16)]
 bints = [[int(s[n]) for n in range(4)] for s in Btxt]
 bn = np.array(bints)
-# A, B, C, D = bn[:,0], bn[:,1], bn[:,2], bn[:,3]
+A, B, C, D = bn[:,0], bn[:,1], bn[:,2], bn[:,3]
 
 ops = ['As', 'Ap', 'Os', 'Op', 'Xs', 'Xp', 'NAs', 'NAp', 'NOs', 'NOp']
 
