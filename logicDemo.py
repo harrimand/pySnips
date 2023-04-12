@@ -1,8 +1,8 @@
 
-from logic.logic import *
-from logic.km import *
-from logic.lv import *
-from logic.qm import *
+from logic import *
+from km import *
+from lv import *
+from qm import *
 
 T = lv(4)
 A, B, C, D = T.cols()
