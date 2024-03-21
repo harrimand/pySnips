@@ -1,5 +1,5 @@
 # Kaprekar's Constant
-''' Kaprekar's constant 6134
+''' Kaprekar's constant 6174
 Choose a random 4 digit numbers with at least 2 different digits.
 Sort digits decending order.
 subtract number with digits in ascending order.
@@ -13,11 +13,23 @@ subtract number with digits in ascending order.
    -3456
    -----
     3087
+-----------------
+    8730
+   -0378
+   -----
+    8352
+-----------------
+    8532
+   -2358
+   -----
+    6174 
+-----------------
+
 
 Repeat until answer is 6174
 '''
 
-kap = 5697
+kap = 8273
 print("\t", kap)
 while(kap != 6174):
     sti = str(kap)
@@ -28,3 +40,4 @@ while(kap != 6174):
     rev = int("".join([str(n) for n in digrev]))
     kap = rev - fwd
     print("\t", kap)
+ 
