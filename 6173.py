@@ -17,13 +17,14 @@ subtract number with digits in ascending order.
 Repeat until answer is 6174
 '''
 
-inVal = 8732
-sti = str(inVal)
-stl = [int(c) for c in sti]
-stlr = sorted(stl, reverse=True)
-nr = int("".join([str(n) for n in stlr]))
-n = sorted(stl)
-res = nr = n
-
-
-
+kap = 5697
+print("\t", kap)
+while(kap != 6174):
+    sti = str(kap)
+    digits = [int(c) for c in sti]
+    digsort = sorted(digits)
+    fwd = int("".join([str(n) for n in digsort]))
+    digrev = sorted(digits, reverse=True)
+    rev = int("".join([str(n) for n in digrev]))
+    kap = rev - fwd
+    print("\t", kap)
