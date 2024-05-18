@@ -16,7 +16,7 @@ print("  Max:", pwMax, "  Min:", pwMin, "  Mid:", pwMid, "  Range:", pwRange, " 
 
 data = []
 for t in range(steps):
-    pos = int(pwRange / 2 * math.sin(t * 2 * math.pi / steps) + pwMid)
+    pos = int(pwRange * math.sin(t * 2 * math.pi / steps) + pwMid)
     data.append(pos)
 
 print(data)
