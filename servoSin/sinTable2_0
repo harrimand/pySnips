@@ -1,3 +1,4 @@
+; 2.0 Second Sweep Time 
 TABLEaddr2_0:
 .db	$3B,	$3C,	$3B,	$3A,	$39,	$38,	$37,	$35
 .db	$34,	$31,	$2F,	$2D,	$2A,	$27,	$25,	$22
